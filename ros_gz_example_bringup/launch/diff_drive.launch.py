@@ -36,7 +36,7 @@ def generate_launch_description():
     pkg_ros_gz_sim = get_package_share_directory('ros_gz_sim')
 
     # Load the SDF file from "description" package
-    sdf_file  =  os.path.join(pkg_project_description, 'models', 'diff_drive', 'model.sdf')
+    sdf_file = os.path.join(pkg_project_description, 'models', 'diff_drive', 'model.sdf')
     with open(sdf_file, 'r') as infp:
         robot_desc = infp.read()
 
@@ -82,11 +82,20 @@ def generate_launch_description():
         output='screen'
     )
 
+    # Bridge for the camera topic
+    camera_bridge = Node(
+        package='ros_gz_bridge',
+        executable='parameter_bridge',
+        arguments=['/camera@sensor_msgs/msg/Image@gz.msgs.Image'],
+        output='screen'
+    )
+
     return LaunchDescription([
         gz_sim,
         DeclareLaunchArgument('rviz', default_value='true',
                               description='Open RViz.'),
         bridge,
+        camera_bridge,
         robot_state_publisher,
         rviz
     ])
