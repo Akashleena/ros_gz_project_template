@@ -32,6 +32,6 @@ To launch the differential drive robot with the attached camera in Gazebo and vi
 
 ```bash
 ros2 launch ros_gz_example_bringup diff_drive.launch.py
-
+```
 ![Gazebo and RViz Environment](gazeboenvironment.png)
 
